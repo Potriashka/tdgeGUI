@@ -27,20 +27,11 @@ def clicked():
 	width = wid.get()
 	global game
 	txt = Entry(window, width=10)
+	game = main.Game(resizable=True if resizable3 else False, movement=True, height=int(height), width=int(width), title=(name))
 	if true == "image":
-		if resizable3:
-			game = main.Game(movement=True, resizable=True, height=int(height), width=int(width), title=(name))
-			main.display.set_background(game, background_type="color", color=main.hex_to_rgb(result[1]))
-		else:
-			game = main.Game(movement=True, height=int(height), width=int(width), title=(name))
-			main.display.set_background(game, background_type="color", color=main.hex_to_rgb(result[1]))
+		main.display.set_background(game, background_type="color", color=main.hex_to_rgb(result[1]))
 	elif true == "picture":
-		if resizable3:
-			game = main.Game(movement=True, resizable=True, height=int(height), width=int(width), title=(name))
-			main.display.set_background(game, background_type="image", image_path=file)
-		else:
-			game = main.Game(movement=True, height=int(height), width=int(width), title=(name))
-			main.display.set_background(game, background_type="image", image_path=file)
+		main.display.set_background(game, background_type="image", image_path=file)
 
 window = Tk()  
 window.title("3D Game Engine")  
