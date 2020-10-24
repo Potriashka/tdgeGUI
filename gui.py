@@ -6,8 +6,7 @@ from tkinter.ttk import Radiobutton
 from tkinter import filedialog
 
 def resizable3():
-	global resizable2
-	resizable2 = True
+	pass
 
 def color_bg():
 	global true
@@ -27,15 +26,21 @@ def clicked():
 	height = hei.get()
 	width = wid.get()
 	global game
-	game = main.Game(movement=True, height=int(height), width=int(width), title=(name))
 	txt = Entry(window, width=10)
 	if true == "image":
-		if resizable3 == True:
-			main.display.set_background(game, resizable=True, background_type="color", color=main.hex_to_rgb(result[1]))
+		if resizable3:
+			game = main.Game(movement=True, resizable=True, height=int(height), width=int(width), title=(name))
+			main.display.set_background(game, background_type="color", color=main.hex_to_rgb(result[1]))
 		else:
+			game = main.Game(movement=True, height=int(height), width=int(width), title=(name))
 			main.display.set_background(game, background_type="color", color=main.hex_to_rgb(result[1]))
 	elif true == "picture":
-		main.display.set_background(game, background_type="image", image_path=file)
+		if resizable3:
+			game = main.Game(movement=True, resizable=True, height=int(height), width=int(width), title=(name))
+			main.display.set_background(game, background_type="image", image_path=file)
+		else:
+			game = main.Game(movement=True, height=int(height), width=int(width), title=(name))
+			main.display.set_background(game, background_type="image", image_path=file)
 
 window = Tk()  
 window.title("3D Game Engine")  
