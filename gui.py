@@ -1,33 +1,36 @@
 from tkinter import *
 from tkinter import ttk  
 from tkinter.colorchooser import askcolor 
-import main
+import tdge as main
 from tkinter.ttk import Radiobutton
 from tkinter import filedialog
 
+resizable = False # I have added this line to make resizable True by default
+
 def resizable3():
-	pass
+	global resizable3 # I have added this line
+	resizable = True # and this line
 
 def color_bg():
-	global true
+	global true, result # I have removed the "global result" line and put "result" here #be_efficient
 	true = "image"
-	global result
+	# global result - no need to do that
 	result = askcolor(title = "Choose color")
 	print(result[1])
 
 def image_bg():
-	global true
+	global true, file # I have removed "global file" line and put "file" here #be_efficient
 	true = "picture"
-	global file
+	# global file - no need to do that
 	file = filedialog.askopenfilename()
 
 def clicked():
 	name = title.get()
 	height = hei.get()
 	width = wid.get()
-	global game
+	global game, resizable, true # I have changed this line (added "resizable" and "true" here). Quick note: resizable is a global variable (True or None)
 	txt = Entry(window, width=10)
-	game = main.Game(resizable=True if resizable3 else False, movement=True, height=int(height), width=int(width), title=(name))
+	game = main.Game(resizable=resizable, movement=True, height=int(height), width=int(width), title=(name))
 	if true == "image":
 		main.display.set_background(game, background_type="color", color=main.hex_to_rgb(result[1]))
 	elif true == "picture":
