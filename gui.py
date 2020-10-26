@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk  
 from tkinter.colorchooser import askcolor 
-import tdge as main
+import main
 from tkinter.ttk import Radiobutton
 from tkinter import filedialog
 import pygame
