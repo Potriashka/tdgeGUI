@@ -4,34 +4,41 @@ from tkinter.colorchooser import askcolor
 import main
 from tkinter.ttk import Radiobutton
 from tkinter import filedialog
+import pygame
+
+resizable = False # I have added this line to make resizable True by default
+true = None # I have added this line to make true None by default
 
 def resizable3():
-	pass
+	global resizable3 # I have added this line
+	resizable = True # and this line
 
 def color_bg():
-	global true
+	global true, result # I have removed the "global result" line and put "result" here #be_efficient
 	true = "image"
-	global result
+	# global result - no need to do that
 	result = askcolor(title = "Choose color")
-	print(result[1])
 
 def image_bg():
-	global true
+	global true, file # I have removed "global file" line and put "file" here #be_efficient
 	true = "picture"
-	global file
+	# global file - no need to do that
 	file = filedialog.askopenfilename()
 
-def clicked():
+def clicked(start=False): # added "start" argument. by default it is False.
 	name = title.get()
 	height = hei.get()
 	width = wid.get()
-	global game
+	global game, resizable, true # I have changed this line (added "resizable" and "true" here). Quick note: resizable is a global variable (True or None)
 	txt = Entry(window, width=10)
-	game = main.Game(resizable=True if resizable3 else False, movement=True, height=int(height), width=int(width), title=(name))
+	game = main.Game(resizable=resizable, movement=True, height=int(height), width=int(width), title=(name))
 	if true == "image":
 		main.display.set_background(game, background_type="color", color=main.hex_to_rgb(result[1]))
 	elif true == "picture":
 		main.display.set_background(game, background_type="image", image_path=file)
+
+	if start: # if start is true (it is true only if the start button was pressed)
+		main.start_game(game) # start the game
 
 window = Tk()  
 window.title("3D Game Engine")  
@@ -76,7 +83,7 @@ hei.place(x=12, y=116.5)
 heitext = Label(tab1, text="height", font=("Arial Bold", 10))
 heitext.place(x=67, y=115)
 
-btn = Button(tab1, text="Start", command=clicked)  
+btn = Button(tab1, text="Start", command=lambda: clicked(start=True)) # passing aguments to clicked using lambda (you don't need to carry about that)
 btn.place(x=160, y=195)
 
 lbl12 = Label(tab1, text="Window size", font=("Arial Bold", 10))
